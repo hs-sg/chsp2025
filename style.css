@@ -17,18 +17,19 @@ header {
     overflow: hidden;
 }
 
-header img.decoration {
+header .decoration {
     position: absolute;
     width: 150px;
+    height: 150px;
     opacity: 0.3;
 }
 
-header img.decoration.left {
+header .decoration.left {
     top: 0;
     left: 0;
 }
 
-header img.decoration.right {
+header .decoration.right {
     top: 0;
     right: 0;
     transform: scaleX(-1);
