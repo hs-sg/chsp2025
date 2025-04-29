@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>고급 미모티콘 눈+얼굴 따라가기</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #eef2f7;
+    }
+
+    .memoji-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      perspective: 1000px;
+    }
+
+    .memoji-wrapper {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      transform-style: preserve-3d;
+      transition: transform 0.1s;
+    }
+
+    .memoji {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 50%;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .eye {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: black;
+      border-radius: 50%;
+      top: 110px; /* 눈 위치 조정 */
+      left: 95px;
+      transition: transform 0.1s;
+      z-index: 10;
+    }
+
+    .eye.right {
+      left: 165px; /* 오른쪽 눈 */
+    }
+  </style>
+</head>
+<body>
+
+<div class="memoji-container">
+  <div class="memoji-wrapper" id="memojiWrapper">
+    <img src="미모지-이미지-경로.png" class="memoji" id="memoji">
+    <div class="eye left" id="eyeLeft"></div>
+    <div class="eye right" id="eyeRight"></div>
+  </div>
+</div>
+
+<script>
+  const eyeLeft = document.getElementById('eyeLeft');
+  const eyeRight = document.getElementById('eyeRight');
+  const memojiWrapper = document.getElementById('memojiWrapper');
+
+  let targetX = window.innerWidth / 2;
+  let targetY = window.innerHeight / 2;
+
+  document.addEventListener('mousemove', (e) => {
+    targetX = e.clientX;
+    targetY = e.clientY;
+  });
+
+  document.addEventListener('touchmove', (e) => {
+    if (e.touches.length > 0) {
+      targetX = e.touches[0].clientX;
+      targetY = e.touches[0].clientY;
+    }
+  }, { passive: true });
+
+  function animate() {
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+
+    const deltaX = (targetX - centerX) / centerX;
+    const deltaY = (targetY - centerY) / centerY;
+
+    const eyeMove = 10;
+    const rotateAmount = 10; // 얼굴 회전 정도
+
+    eyeLeft.style.transform = `translate(${deltaX * eyeMove}px, ${deltaY * eyeMove}px)`;
+    eyeRight.style.transform = `translate(${deltaX * eyeMove}px, ${deltaY * eyeMove}px)`;
+
+    memojiWrapper.style.transform = `
+      rotateY(${deltaX * rotateAmount}deg)
+      rotateX(${-deltaY * rotateAmount}deg)
+    `;
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+</script>
+
+</body>
+</html>
