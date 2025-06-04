@@ -17,8 +17,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, imageSrc,
         <img src={imageSrc} alt={title} className="object-cover w-full h-full" />
       </div>
 
-      <h3 className="text-3xl font-bold mb-2">{title}</h3>
-      <p className="text-base text-gray-700 mb-4">{description}</p>
+      <h3 className="text-3xl lg:text-5xl font-bold mb-2 lg:mb-5">{title}</h3>
+      <p className="text-base lg:text-xl text-gray-700 mb-4">{description}</p>
 
       <div className="flex flex-wrap gap-2">
         {tags.map((tag) => (

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
-import { Button } from "./components/ui/button";
 import ProjectCard from "./components/ProjectCard";
 import FadeInOnScroll from "./components/FadeInOnScroll";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 import { Menu, X } from "lucide-react";
 import "@google/model-viewer";
 
@@ -44,25 +44,24 @@ export default function App(): JSX.Element {
     <div className="w-full bg-white">
       {/* Header Section */}
       {/* 헤더 배경 */}
-      <div className="w-full h-[250px] md:h-[280px] lg:h-[550px] bg-cover bg-center mt-10"
-        style={{backgroundImage: "url('/header_background.png')"}}>
+      <div className="w-full h-[380px] md:h-[400px] lg:h-[550px] bg-cover bg-center mt-10"
+        style={{backgroundImage: "url('')"}}>
         {/* 로고 */}
         <img
-          className="hidden lg:block absolute w-[30px] md:w-[70px] lg:w-[110px] lg:top-[150px] lg:left-[240px]"
+          className="hidden lg:block absolute 
+            w-[30px] md:w-[70px] lg:w-[110px] 
+            lg:top-[150px] 
+            left-[20px] md:left-[20px] lg:left-[240px]"
           alt="Hs logo top"
           src="/hs_logo.png"
         />
 
-        {/* 이름 */}
-        <img
-          className="block absolute w-auto md:w-[800px] lg:w-[1000px] top-[500px] md:top-[350px] lg:top-[500px] lg:left-[240px]"
-          alt="hashin choi"
-          src="/name_en.png"
-        />
-
         {/* 3D Model(모델 뷰어) */}
         <model-viewer
-          className="mx-auto float-none md:float-right md:mr-20 md:w-[500px] lg:w-[700px] h-[500px] lg:h-[890px]"
+          className="mx-auto float-none md:relative lg:float-right md:mr-20 
+            md:w-[400px] lg:w-[600px] xl:w-[700px] 
+            h-[500px] lg:h-[700px] xl:h-[890px]
+            z-10"
           alt="angel sculpture"
           src="/angel_sculpture.glb"
           poster=""
@@ -73,6 +72,18 @@ export default function App(): JSX.Element {
           /*touch-action="pan-y"*/
           auto-rotate>
         </model-viewer>
+
+        
+        {/* 이름 */}
+        <img
+          className="block absolute 
+            w-auto md:w-[800px] lg:w-[1000px] xl:w-[1300px] 
+            top-[400px] md:top-[50px] lg:top-[160px] 
+            md:left-[80px] lg:left-[140px]
+            z-0"
+          alt="hashin choi"
+          src="/hs_big_tag_c1.svg"
+        />
       </div>
 
       {/* 모바일/태블릿 메뉴 */}
@@ -122,7 +133,7 @@ export default function App(): JSX.Element {
       </div>
 
       {/* Navigation Menu */}
-      <nav className="hidden lg:flex w-full mt-[350px] justify-around gap-6 text-blue-600 font-medium">
+      <nav className="hidden lg:flex w-full mt-[600px] justify-around gap-6 text-blue-600 font-medium">
         {navItems.map((item) => (
           <a
             key={item.id}
@@ -134,6 +145,10 @@ export default function App(): JSX.Element {
         ))}
       </nav>
       
+      <div className="w-full">
+        <span><br/><br/></span>
+      </div>
+
       <FadeInOnScroll>
       <section id="about" className="w-full max-w-7xl mx-auto px-10 my-[500px]">
         <h2 className="text-6xl md:text-[90px] font-bold">about me</h2>
@@ -186,6 +201,9 @@ export default function App(): JSX.Element {
         />
       </div>
       </FadeInOnScroll>
+
+      {/* 상단 이동 버튼 */}
+      <ScrollToTopButton />
     </div>
   );
 }
