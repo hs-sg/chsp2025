@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import LoadingScreen from "./components/LoadingScreen";
 import ProjectCard from "./components/ProjectCard";
 import FadeInOnScroll from "./components/FadeInOnScroll";
 import ScrollToTopButton from "./components/ScrollToTopButton";
@@ -7,6 +8,41 @@ import "@google/model-viewer";
 
 export default function App(): JSX.Element {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [loadingPercent, setLoadingPercent] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // 로딩 화면
+  // 퍼센트 점진 증가
+  useEffect(() => {
+    let percent = 0;
+
+    const interval = setInterval(() => {
+      if (percent < 90) {
+        percent += 1;
+        setLoadingPercent(percent);
+      }
+    }, 30); // 약 2.7초에 90% 도달
+
+    // 완전 로딩 시
+    const handleComplete = () => {
+      clearInterval(interval);
+      setLoadingPercent(100);
+      setTimeout(() => setIsLoaded(true), 300); // 100% 보여준 후 앱 표시
+    };
+
+    // 모든 리소스 로드 후 실행
+    if (document.readyState === "complete") {
+      handleComplete();
+    } else {
+      window.addEventListener("load", handleComplete);
+    }
+
+    return () => window.removeEventListener("load", handleComplete);
+  }, []);
+
+  if (!isLoaded) {
+    return <LoadingScreen percent={loadingPercent} />;
+  }
 
   // Navigation items
   const navItems = [
