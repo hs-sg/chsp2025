@@ -15,7 +15,6 @@ export default function App(): JSX.Element {
   // 퍼센트 점진 증가
   useEffect(() => {
     let percent = 0;
-
     const interval = setInterval(() => {
       if (percent < 90) {
         percent += 1;
