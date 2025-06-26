@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import ProjectCard from "./components/ProjectCard";
 import FadeInOnScroll from "./components/FadeInOnScroll";
 import ScrollToTopButton from "./components/ScrollToTopButton";
@@ -6,9 +6,8 @@ import { Menu, X } from "lucide-react";
 import "@google/model-viewer";
 
 export default function App(): JSX.Element {
-// export default function HsPwsDesktopFrame(): JSX.Element {
-  
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
   // Navigation items
   const navItems = [
     { title: "about me", id: "about" },
@@ -41,168 +40,112 @@ export default function App(): JSX.Element {
   ];
 
   return (
-    <div className="w-full bg-white">
-      {/* Header Section */}
-      {/* 헤더 배경 */}
-      <div className="w-full h-[380px] md:h-[400px] lg:h-[550px] bg-cover bg-center mt-10"
-        style={{backgroundImage: "url('')"}}>
-        {/* 로고 */}
-        <img
-          className="hidden lg:block absolute 
-            w-[30px] md:w-[70px] lg:w-[110px] 
-            lg:top-[150px] 
-            left-[20px] md:left-[20px] lg:left-[240px]"
-          alt="Hs logo top"
-          src="/hs_logo.png"
-        />
+    <div className="w-full bg-white text-gray-900">
+      {/* Header */}
+      <header className="relative w-full h-screen bg-cover bg-center flex items-center justify-center" style={{ backgroundImage: "url('/your_background_image.jpg')" }}>
+        <div className="relative w-full h-full flex items-center justify-center py-20">
+          <model-viewer
+            className="absolute w-[250px] md:w-[400px] lg:w-[550px] h-[500px] z-10"
+            alt="angel sculpture"
+            src="/angel_sculpture.glb"
+            poster=""
+            shadow-intensity="1"
+            camera-controls
+            interaction-prompt="none"
+            disable-zoom
+            auto-rotate
+          />
 
-        {/* 3D Model(모델 뷰어) */}
-        <model-viewer
-          className="mx-auto float-none md:relative lg:float-right md:mr-20 
-            md:w-[400px] lg:w-[600px] xl:w-[700px] 
-            h-[500px] lg:h-[700px] xl:h-[890px]
-            z-10"
-          alt="angel sculpture"
-          src="/angel_sculpture.glb"
-          poster=""
-          shadow-intensity="1"
-          camera-controls
-          interaction-prompt="none"
-          disable-zoom
-          /*touch-action="pan-y"*/
-          auto-rotate>
-        </model-viewer>
+          <img
+            src="/hs_big_tag_c1.svg"
+            alt="Hashin Choi"
+            className="relative w-[90%] md:w-[75%] lg:w-[60%] max-w-[1000px] z-0"
+          />
+        </div>
 
-        
-        {/* 이름 */}
-        <img
-          className="block absolute 
-            w-auto md:w-[800px] lg:w-[1000px] xl:w-[1300px] 
-            top-[400px] md:top-[50px] lg:top-[160px] 
-            md:left-[80px] lg:left-[140px]
-            z-0"
-          alt="hashin choi"
-          src="/hs_big_tag_c1.svg"
-        />
-      </div>
-
-      {/* 모바일/태블릿 메뉴 */}
-      <div className="lg:hidden">
-        {/* 로고 */}
-        <img
-          className="fixed top-4 left-4 w-[30px]"
-          alt="hs"
-          src="/hs_logo.png"
-        />
-
-        {/* 햄버거 메뉴 버튼 (모바일 전용) */}
-        <div className="fixed top-4 right-4 z-50">
+        {/* Mobile Menu */}
+        <div className="lg:hidden fixed top-4 right-4 z-50">
           <Menu size={32} onClick={() => setIsDrawerOpen(true)} className="cursor-pointer" />
         </div>
-      </div>
+      </header>
 
-      {/* Drawer 오버레이 */}
+      {/* Drawer */}
       {isDrawerOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
-          onClick={() => setIsDrawerOpen(false)}
-        />
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={() => setIsDrawerOpen(false)} />
       )}
-
-      {/* Drawer 메뉴 */}
-      <div
-        className={`fixed top-0 right-0 h-full w-3/4 max-w-[300px] bg-white z-50 shadow-lg transform transition-transform duration-300
-        ${isDrawerOpen ? "translate-x-0" : "translate-x-full"}`}
-      >
+      <aside className={`fixed top-0 right-0 h-full w-3/4 max-w-sm bg-white z-50 shadow-lg transform transition-transform duration-300 ${isDrawerOpen ? "translate-x-0" : "translate-x-full"}`}>
         <div className="flex justify-between items-center p-4 border-b">
           <h2 className="text-xl font-bold">Menu</h2>
           <X size={28} onClick={() => setIsDrawerOpen(false)} className="cursor-pointer" />
         </div>
         <nav className="flex flex-col items-start px-6 py-4 space-y-4">
           {navItems.map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              className="text-lg font-medium text-gray-800 hover:underline hover:text-lime-300"
-              onClick={() => setIsDrawerOpen(false)}
-            >
+            <a key={item.id} href={`#${item.id}`} className="text-lg font-medium text-gray-800 hover:text-lime-500" onClick={() => setIsDrawerOpen(false)}>
               {item.title}
             </a>
           ))}
         </nav>
-      </div>
+      </aside>
 
-      {/* Navigation Menu */}
-      <nav className="hidden lg:flex w-full mt-[600px] justify-around gap-6 text-blue-600 font-medium">
+      {/* Nav */}
+      <nav className="hidden lg:flex justify-center gap-16 pt-12 pb-48 text-xl font-semibold">
         {navItems.map((item) => (
-          <a
-            key={item.id}
-            href={`#${item.id}`}
-            className="font-bold text-black text-[18px] lg:text-[45px] text-center 
-              tracking-[-1.35px] leading-[54.0px] hover:underline hover:text-lime-300">
+          <a key={item.id} href={`#${item.id}`} className="hover:text-lime-500 transition">
             {item.title}
           </a>
         ))}
       </nav>
-      
-      <div className="w-full">
-        <span><br/><br/></span>
-      </div>
 
+      {/* About Section */}
       <FadeInOnScroll>
-      <section id="about" className="w-full max-w-7xl mx-auto px-10 my-[500px]">
-        <h2 className="text-6xl md:text-[90px] font-bold">about me</h2>
-        <p className="text-base/8 md:text-xl lg:text-3xl md:leading-[2] lg:leading-[2] text-gray-800 mt-5 md:mt-12">
-        대학교에서 정보사회학, 커뮤니케이션디자인학을 전공한 뒤 프로그래밍에 매력을 느끼고 웹 개발을 업으로 삼고 있습니다. 
-        몰입을 즐기고, 문제를 사랑합니다. 다양한 경험과 의견이 어우러질 때, 더 나은 결과가 탄생한다는 믿음을 갖고 세상을 더 나은 곳으로 만들기 위해 견문을 쌓고 있습니다.
-        </p>
-      </section>
+        <section id="about" className="max-w-6xl mx-auto px-6 md:px-10 py-48 scroll-mt-24">
+          <h2 className="text-4xl md:text-6xl font-bold">About Me</h2>
+          <p className="mt-6 text-lg md:text-xl leading-relaxed">
+            대학교에서 정보사회학, 커뮤니케이션디자인학을 전공한 뒤 프로그래밍에 매력을 느끼고 웹 개발을 업으로 삼고 있습니다. 몰입을 즐기고, 문제를 사랑합니다.
+            다양한 경험과 의견이 어우러질 때 더 나은 결과가 탄생한다는 믿음을 갖고 세상을 더 나은 곳으로 만들기 위해 견문을 쌓고 있습니다.
+          </p>
+          {/* 
+          <div className="mt-20">
+            <img src="/ambient_graphic_1.png" alt="ambient graphic" className="w-full rounded-xl shadow-md" />
+          </div>
+          */}
+        </section>
       </FadeInOnScroll>
 
+      {/* Projects Section */}
       <FadeInOnScroll>
-      <section id="projects" className="w-full max-w-7xl mx-auto px-10 my-[500px]">
-        <h2 className="text-6xl md:text-[90px] font-bold">projects</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-20">
-          {projects.map((project) => (
-            <FadeInOnScroll key={project.title}>
-              <ProjectCard
-                title={project.title}
-                description={project.description}
-                imageSrc={project.imageSrc}
-                tags={project.tags}
-              />
-            </FadeInOnScroll>
-          ))}
-        </div>
-      </section>
-      </FadeInOnScroll>
-      
-      <FadeInOnScroll>
-      <section id="contact" className="w-full max-w-7xl mx-auto px-10 mt-[500px]">
-        <h2 className="text-5xl md:text-[90px] font-bold text-center">contact me</h2>
-        <div className="mt-10 md:mt-20">
-          {contactMethods.map((item) => (
-            <a
-              key={item.title}
-              href={`${item.link}`}
-              className="block text-3xl md:text-[55px] text-center mt-1 md:mt-8 hover:text-lime-300">
-              {item.title}
-            </a>
-          ))}
-        </div>
-      </section>
-      
-      {/* 로고 */}
-      <div className="flex justify-center mt-10 mb-20 md:mt-20 md:mb-[250px]">
-        <img
-          className="w-[70px] md:w-[150px]"
-          alt="Hs logo top"
-          src="/hs_logo.png"
-        />
-      </div>
+        <section id="projects" className="max-w-6xl mx-auto px-6 md:px-10 py-48 scroll-mt-24">
+          <h2 className="text-4xl md:text-6xl font-bold">Projects</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12">
+            {projects.map((project) => (
+              <FadeInOnScroll key={project.id}>
+                <ProjectCard {...project} />
+              </FadeInOnScroll>
+            ))}
+          </div>
+          {/* 
+          <div className="mt-20">
+            <img src="/ambient_graphic_1.png" alt="ambient graphic" className="w-full rounded-xl shadow-md" />
+          </div>
+          */}
+        </section>
       </FadeInOnScroll>
 
-      {/* 상단 이동 버튼 */}
+      {/* Contact Section */}
+      <FadeInOnScroll>
+        <section id="contact" className="max-w-6xl mx-auto px-6 md:px-10 py-48 text-center scroll-mt-24">
+          <h2 className="text-4xl md:text-6xl font-bold">Contact Me</h2>
+          <div className="mt-10 space-y-6">
+            {contactMethods.map((item) => (
+              <a key={item.title} href={item.link} className="text-2xl md:text-4xl block hover:text-lime-500">
+                {item.title}
+              </a>
+            ))}
+          </div>
+          <img src="/hs_logo.png" alt="Logo bottom" className="mx-auto mt-16 w-20 md:w-32" />
+        </section>
+      </FadeInOnScroll>
+
       <ScrollToTopButton />
     </div>
   );
